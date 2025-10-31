@@ -240,12 +240,51 @@ The application uses JWT (JSON Web Tokens) for authentication:
 
 ## 🚀 Deployment
 
-### Backend Deployment
+### Quick Deploy to Vercel (Recommended)
+
+#### Prerequisites
+- [Vercel Account](https://vercel.com)
+- [MongoDB Atlas](https://www.mongodb.com/atlas) or another MongoDB provider
+
+#### Deploy Steps
+
+1. **Fork/Clone this repository to GitHub**
+
+2. **Deploy Backend to Vercel:**
+   ```bash
+   # Install Vercel CLI
+   npm install -g vercel
+
+   # Deploy backend
+   cd server
+   vercel --prod
+
+   # Set environment variables in Vercel dashboard:
+   # MONGODB_URI, JWT_SECRET, CLIENT_URL, NODE_ENV=production
+   ```
+
+3. **Deploy Frontend to Vercel:**
+   ```bash
+   # Deploy frontend
+   cd ../client
+   vercel --prod
+
+   # Set environment variable in Vercel dashboard:
+   # VITE_API_URL=https://your-backend-url.vercel.app
+   ```
+
+4. **Update Environment Variables:**
+   - In your backend Vercel project: Set `CLIENT_URL` to your frontend Vercel URL
+   - In your frontend Vercel project: Set `VITE_API_URL` to your backend Vercel URL
+
+### Alternative Deployment Options
+
+#### Backend Deployment
 1. Set production environment variables
 2. Run `npm start` instead of `npm run dev`
 3. Use a process manager like PM2 in production
 
-### Frontend Deployment
+#### Frontend Deployment
 1. Build the application: `npm run build`
 2. Serve the `dist` folder with a static server
 3. Configure your web server (nginx, Apache) to serve the built files
@@ -256,7 +295,8 @@ NODE_ENV=production
 MONGODB_URI=your-production-mongodb-uri
 JWT_SECRET=your-production-jwt-secret
 PORT=5000
-CLIENT_URL=https://yourdomain.com
+CLIENT_URL=https://your-frontend-domain.com
+VITE_API_URL=https://your-backend-domain.com
 ```
 
 ## 🤝 Contributing
