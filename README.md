@@ -240,42 +240,84 @@ The application uses JWT (JSON Web Tokens) for authentication:
 
 ## 🚀 Deployment
 
-### Quick Deploy to Vercel (Recommended)
+### Deploy to Render (Backend) + Vercel (Frontend)
 
 #### Prerequisites
+- [Render Account](https://render.com)
 - [Vercel Account](https://vercel.com)
-- [MongoDB Atlas](https://www.mongodb.com/atlas) or another MongoDB provider
+- [MongoDB Atlas](https://www.mongodb.com/atlas) database
+- GitHub repository with your code
 
-#### Deploy Steps
+#### Step 1: Set up MongoDB Atlas
+1. Create a free cluster on MongoDB Atlas
+2. Create a database user
+3. Whitelist your IP (0.0.0.0/0 for testing)
+4. Get your connection string: `mongodb+srv://username:password@cluster.mongodb.net/chatapp`
 
-1. **Fork/Clone this repository to GitHub**
+#### Step 2: Deploy Backend to Render
 
-2. **Deploy Backend to Vercel:**
-   ```bash
-   # Install Vercel CLI
-   npm install -g vercel
+1. **Connect your GitHub repository to Render:**
+   - Go to [Render Dashboard](https://dashboard.render.com)
+   - Click "New" → "Web Service"
+   - Connect your GitHub repository
+   - Select the repository
 
-   # Deploy backend
-   cd server
-   vercel --prod
+2. **Configure the service:**
+   - **Name:** `socketio-chat-backend`
+   - **Runtime:** `Node`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Root Directory:** `server` (important!)
 
-   # Set environment variables in Vercel dashboard:
-   # MONGODB_URI, JWT_SECRET, CLIENT_URL, NODE_ENV=production
+3. **Set Environment Variables:**
+   ```
+   NODE_ENV=production
+   MONGODB_URI=mongodb+srv://your-connection-string
+   JWT_SECRET=your-super-secret-jwt-key-here
+   CLIENT_URL=https://your-frontend-vercel-url.vercel.app
+   PORT=10000
    ```
 
-3. **Deploy Frontend to Vercel:**
-   ```bash
-   # Deploy frontend
-   cd ../client
-   vercel --prod
+4. **Deploy:**
+   - Click "Create Web Service"
+   - Wait for deployment to complete
+   - Note the backend URL (e.g., `https://socketio-chat-backend.onrender.com`)
 
-   # Set environment variable in Vercel dashboard:
-   # VITE_API_URL=https://your-backend-url.vercel.app
+#### Step 3: Deploy Frontend to Vercel
+
+1. **Connect repository to Vercel:**
+   - Go to [Vercel Dashboard](https://vercel.com/dashboard)
+   - Click "New Project"
+   - Import your GitHub repository
+   - Configure project settings:
+     - **Framework Preset:** `Vite`
+     - **Root Directory:** `client`
+
+2. **Set Environment Variables:**
+   ```
+   VITE_API_URL=https://your-backend-render-url.onrender.com
    ```
 
-4. **Update Environment Variables:**
-   - In your backend Vercel project: Set `CLIENT_URL` to your frontend Vercel URL
-   - In your frontend Vercel project: Set `VITE_API_URL` to your backend Vercel URL
+3. **Deploy:**
+   - Click "Deploy"
+   - Wait for deployment to complete
+   - Note the frontend URL (e.g., `https://socketio-chat.vercel.app`)
+
+#### Step 4: Update Backend Environment Variables
+
+1. Go back to your Render dashboard
+2. Update the `CLIENT_URL` environment variable with your Vercel frontend URL:
+   ```
+   CLIENT_URL=https://your-frontend-vercel-url.vercel.app
+   ```
+3. Redeploy the backend service
+
+#### Step 5: Test Your Deployment
+
+1. Visit your Vercel frontend URL
+2. Try registering a new user
+3. Test the chat functionality
+4. Check that real-time features work (typing indicators, emoji reactions, etc.)
 
 ### Alternative Deployment Options
 
