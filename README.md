@@ -1,6 +1,5 @@
 # Real-Time Chat Application with Socket.IO
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Application-blue?style=for-the-badge)](https://your-deployment-link.com)
 
 A full-stack real-time chat application built with the MERN stack (MongoDB, Express.js, React, Node.js) and Socket.IO for instant messaging and live updates.
 
@@ -17,10 +16,6 @@ A full-stack real-time chat application built with the MERN stack (MongoDB, Expr
 ### Room Creation
 ![Room Creation](screenshots/create-room.png)
 *Modal for creating new chat rooms*
-
-### Mobile Responsive
-![Mobile View](screenshots/mobile-view.png)
-*Responsive design optimized for mobile devices*
 
 ### Emoji Reactions
 ![Emoji Reactions](screenshots/emoji-reactions.png)
@@ -238,108 +233,68 @@ The application uses JWT (JSON Web Tokens) for authentication:
 - **Browser notifications** for new messages
 - **Typing indicators** for better UX
 
-## 🚀 Deployment
+## 🚀 Getting Started
 
-### Deploy to Render (Backend) + Vercel (Frontend)
+### Prerequisites
 
-#### Prerequisites
-- [Render Account](https://render.com)
-- [Vercel Account](https://vercel.com)
-- [MongoDB Atlas](https://www.mongodb.com/atlas) database
-- GitHub repository with your code
+- **Node.js** (v16 or higher)
+- **MongoDB** (local installation or MongoDB Atlas)
+- **npm** or **yarn** package manager
 
-#### Step 1: Set up MongoDB Atlas
-1. Create a free cluster on MongoDB Atlas
-2. Create a database user
-3. Whitelist your IP (0.0.0.0/0 for testing)
-4. Get your connection string: `mongodb+srv://username:password@cluster.mongodb.net/chatapp`
+### Installation
 
-#### Step 2: Deploy Backend to Render
-
-1. **Connect your GitHub repository to Render:**
-   - Go to [Render Dashboard](https://dashboard.render.com)
-   - Click "New" → "Web Service"
-   - Connect your GitHub repository
-   - Select the repository
-
-2. **Configure the service:**
-   - **Name:** `socketio-chat-backend`
-   - **Runtime:** `Node`
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-   - **Root Directory:** `server` (important!)
-
-3. **Set Environment Variables:**
-   ```
-   NODE_ENV=production
-   MONGODB_URI=mongodb+srv://your-connection-string
-   JWT_SECRET=your-super-secret-jwt-key-here
-   CLIENT_URL=https://your-frontend-vercel-url.vercel.app
-   PORT=10000
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd real-time-communication-with-socket-io
    ```
 
-4. **Deploy:**
-   - Click "Create Web Service"
-   - Wait for deployment to complete
-   - Note the backend URL (e.g., `https://socketio-chat-backend.onrender.com`)
-
-#### Step 3: Deploy Frontend to Vercel
-
-1. **Connect repository to Vercel:**
-   - Go to [Vercel Dashboard](https://vercel.com/dashboard)
-   - Click "New Project"
-   - Import your GitHub repository
-   - Configure project settings:
-     - **Framework Preset:** `Vite`
-     - **Root Directory:** `client`
-
-2. **Set Environment Variables:**
-   ```
-   VITE_API_URL=https://your-backend-render-url.onrender.com
+2. **Set up the backend**
+   ```bash
+   cd server
+   npm install
    ```
 
-3. **Deploy:**
-   - Click "Deploy"
-   - Wait for deployment to complete
-   - Note the frontend URL (e.g., `https://socketio-chat.vercel.app`)
-
-#### Step 4: Update Backend Environment Variables
-
-1. Go back to your Render dashboard
-2. Update the `CLIENT_URL` environment variable with your Vercel frontend URL:
+3. **Set up the frontend**
+   ```bash
+   cd ../client
+   npm install
    ```
-   CLIENT_URL=https://your-frontend-vercel-url.vercel.app
+
+4. **Environment Configuration**
+
+   Copy the `.env.example` file to `.env` in the server directory and fill in your configuration:
+
+   ```bash
+   cd ../server
+   cp .env.example .env
    ```
-3. Redeploy the backend service
 
-#### Step 5: Test Your Deployment
+   Edit the `.env` file with your actual values:
+   ```env
+   MONGODB_URI=mongodb://localhost:27017/chatapp
+   JWT_SECRET=your-super-secret-jwt-key
+   PORT=5000
+   CLIENT_URL=http://localhost:5173
+   ```
 
-1. Visit your Vercel frontend URL
-2. Try registering a new user
-3. Test the chat functionality
-4. Check that real-time features work (typing indicators, emoji reactions, etc.)
+5. **Start the development servers**
 
-### Alternative Deployment Options
+   **Terminal 1 - Backend:**
+   ```bash
+   cd server
+   npm run dev
+   ```
 
-#### Backend Deployment
-1. Set production environment variables
-2. Run `npm start` instead of `npm run dev`
-3. Use a process manager like PM2 in production
+   **Terminal 2 - Frontend:**
+   ```bash
+   cd client
+   npm run dev
+   ```
 
-#### Frontend Deployment
-1. Build the application: `npm run build`
-2. Serve the `dist` folder with a static server
-3. Configure your web server (nginx, Apache) to serve the built files
+6. **Open your browser**
 
-### Environment Variables for Production
-```env
-NODE_ENV=production
-MONGODB_URI=your-production-mongodb-uri
-JWT_SECRET=your-production-jwt-secret
-PORT=5000
-CLIENT_URL=https://your-frontend-domain.com
-VITE_API_URL=https://your-backend-domain.com
-```
+   Navigate to `http://localhost:5173` to access the application.
 
 ## 🤝 Contributing
 
